@@ -1,3 +1,5 @@
+import AuthForm from './AuthForm';
 import Spacer from './Spacer';
+import NavLink from './NavLink';
 
-export { Spacer };
+export { AuthForm, NavLink, Spacer };
