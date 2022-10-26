@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 
-import { Spacer } from './index';
+import Spacer from './Spacer';
 
 const AuthForm = ({ headerText, buttonText, errorMessage, onSubmit }) => {
   const [email, setEmail] = useState('');
