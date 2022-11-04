@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
-import { SafeAreaView } from 'react-navigation';
-import { requestForegroundPermissionsAsync } from 'expo-location';
+import { SafeAreaView, withNavigationFocus } from 'react-navigation';
 
-import '../_mockLocation';
+// import '../_mockLocation'; //uncomment if using a physical device
 import { Map } from '../components';
+import { Context as LocationContext } from '../context/LocationContext';
+import useLocation from '../hooks/useLocation';
 
-const TrackCreateScreen = () => {
-  const [error, setError] = useState(null);
-
-  const startWatching = async () => {
-    try {
-      const { granted } = await requestForegroundPermissionsAsync();
-      if (!granted) throw new Error('Location permission not granted');
-    } catch (e) {
-      setError(e);
-    }
-  }
-
-  useEffect(() => {
-    startWatching();
-  }, []);
+const TrackCreateScreen = ({ isFocused }) => {
+  const { addLocation } = useContext(LocationContext);
+  const [error] = useLocation(isFocused, addLocation);
 
   return (
-    <SafeAreaView forceInset={{ top: 'always' }}>
+    <SafeAreaView style={styles.screenContainer} forceInset={{ top: 'always' }}>
       <Text h2>Create a Track</Text>
       <Map />
       {error && <Text>Please enable location services</Text>}
@@ -32,6 +21,10 @@ const TrackCreateScreen = () => {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screenContainer: {
+    marginTop: 25,
+  }
+});
 
-export default TrackCreateScreen;
+export default withNavigationFocus(TrackCreateScreen);
