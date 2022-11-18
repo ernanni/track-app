@@ -2,8 +2,9 @@ import React, { useContext, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import { SafeAreaView, withNavigationFocus } from 'react-navigation';
+import { FontAwesome } from '@expo/vector-icons';
 
-// import '../_mockLocation'; //uncomment if using a physical device
+// import '../_mockLocation'; //uncomment if using a virtual device
 import { Map, TrackForm } from '../components';
 import { Context as LocationContext } from '../context/LocationContext';
 import useLocation from '../hooks/useLocation';
@@ -30,5 +31,10 @@ const styles = StyleSheet.create({
     marginTop: 25,
   }
 });
+
+TrackCreateScreen.navigationOptions = {
+  title: 'Add Track',
+  tabBarIcon: <FontAwesome name="plus" size={20} />
+};
 
 export default withNavigationFocus(TrackCreateScreen);
